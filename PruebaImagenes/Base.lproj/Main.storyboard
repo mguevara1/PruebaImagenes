@@ -26,23 +26,23 @@
             </objects>
             <point key="canvasLocation" x="-664" y="-245"/>
         </scene>
-        <!--Item-->
+        <!--Imagenes-->
         <scene sceneID="M3n-Ff-hxk">
             <objects>
-                <viewController id="Hw1-FA-j63" sceneMemberID="viewController">
+                <viewController id="Hw1-FA-j63" customClass="ImagenesViewController" customModule="PruebaImagenes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K3A-Gf-QX6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="QTu-7z-bSv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="OCC-PF-p9Y"/>
+                    <tabBarItem key="tabBarItem" title="Imagenes" id="OCC-PF-p9Y"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhh-Hd-kUH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1175" y="469"/>
         </scene>
-        <!--Item-->
+        <!--Favoritos-->
         <scene sceneID="ioh-Xp-EZi">
             <objects>
                 <viewController id="XOV-vg-dgZ" sceneMemberID="viewController">
@@ -52,7 +52,7 @@
                         <viewLayoutGuide key="safeArea" id="gAr-Br-XQ9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="3P2-sV-v2f"/>
+                    <tabBarItem key="tabBarItem" title="Favoritos" id="3P2-sV-v2f"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Tt-Af-Zuj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
