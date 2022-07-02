@@ -23,17 +23,20 @@ struct URLS: Codable {
     let full: String
 }
 
-class ImagenesViewController: UIViewController, UICollectionViewDataSource {
+class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate {
     
-    let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=1&per_page=10&query=cats&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
+    //let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=1&per_page=10&query=cats&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
     
     private var collectionView: UICollectionView?
     
     var results: [Resultado] = []
+    
+    let barrabusqueda = UISearchBar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        barrabusqueda.delegate = self
+        view.addSubview(barrabusqueda)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
@@ -44,15 +47,27 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource {
         collectionView.dataSource = self
         view.addSubview(collectionView)
         self.collectionView = collectionView
-        obtenerImagenes()
+        obtenerImagenes(busqueda: "cats")
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        collectionView?.frame = view.bounds
+        barrabusqueda.frame = CGRect(x: 10, y: view.safeAreaInsets.top, width: view.frame.size.width-20, height: 50)
+        //collectionView?.frame = view.bounds
+        collectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top+50, width: view.frame.size.width, height: view.frame.size.height-50)
     }
     
-    func obtenerImagenes(){
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        barrabusqueda.resignFirstResponder()
+        if let texto = barrabusqueda.text {
+            results = []
+            collectionView?.reloadData()
+            obtenerImagenes(busqueda: texto)
+        }
+    }
+    
+    func obtenerImagenes(busqueda: String){
+        let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=1&per_page=10&query=\(busqueda)&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
         guard let url = URL(string: urlBusquedaImagenes) else{
             return
         }
