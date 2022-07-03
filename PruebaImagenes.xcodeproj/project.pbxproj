@@ -17,6 +17,8 @@
 		D1119202286FC3C2009F651D /* PruebaImagenesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1119201286FC3C2009F651D /* PruebaImagenesUITests.swift */; };
 		D1119204286FC3C2009F651D /* PruebaImagenesUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1119203286FC3C2009F651D /* PruebaImagenesUITestsLaunchTests.swift */; };
 		D111921128701296009F651D /* ImagenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D111921028701296009F651D /* ImagenCollectionViewCell.swift */; };
+		D11192542871F9D4009F651D /* ImagenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11192522871F9D4009F651D /* ImagenTableViewCell.swift */; };
+		D11192552871F9D4009F651D /* ImagenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D11192532871F9D4009F651D /* ImagenTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		D1119201286FC3C2009F651D /* PruebaImagenesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PruebaImagenesUITests.swift; sourceTree = "<group>"; };
 		D1119203286FC3C2009F651D /* PruebaImagenesUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PruebaImagenesUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D111921028701296009F651D /* ImagenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagenCollectionViewCell.swift; sourceTree = "<group>"; };
+		D11192522871F9D4009F651D /* ImagenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagenTableViewCell.swift; sourceTree = "<group>"; };
+		D11192532871F9D4009F651D /* ImagenTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagenTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 				D11191E9286FC3C1009F651D /* Assets.xcassets */,
 				D11191EB286FC3C1009F651D /* LaunchScreen.storyboard */,
 				D11191EE286FC3C1009F651D /* Info.plist */,
+				D11192522871F9D4009F651D /* ImagenTableViewCell.swift */,
+				D11192532871F9D4009F651D /* ImagenTableViewCell.xib */,
 			);
 			path = PruebaImagenes;
 			sourceTree = "<group>";
@@ -234,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D11192552871F9D4009F651D /* ImagenTableViewCell.xib in Resources */,
 				D11191ED286FC3C1009F651D /* LaunchScreen.storyboard in Resources */,
 				D11191EA286FC3C1009F651D /* Assets.xcassets in Resources */,
 				D11191E8286FC3BF009F651D /* Main.storyboard in Resources */,
@@ -262,6 +269,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D11191E5286FC3BF009F651D /* ImagenesViewController.swift in Sources */,
+				D11192542871F9D4009F651D /* ImagenTableViewCell.swift in Sources */,
 				D111921128701296009F651D /* ImagenCollectionViewCell.swift in Sources */,
 				D11191E1286FC3BF009F651D /* AppDelegate.swift in Sources */,
 				D11191E3286FC3BF009F651D /* SceneDelegate.swift in Sources */,

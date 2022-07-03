@@ -33,14 +33,29 @@
                     <view key="view" contentMode="scaleToFill" id="K3A-Gf-QX6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uQL-IW-bS1">
+                                <rect key="frame" x="10" y="94" width="394" height="722"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="QTu-7z-bSv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="uQL-IW-bS1" firstAttribute="leading" secondItem="QTu-7z-bSv" secondAttribute="leading" constant="10" id="AN6-M9-hwo"/>
+                            <constraint firstAttribute="bottom" secondItem="uQL-IW-bS1" secondAttribute="bottom" constant="80" id="R53-cV-waG"/>
+                            <constraint firstItem="uQL-IW-bS1" firstAttribute="top" secondItem="QTu-7z-bSv" secondAttribute="top" constant="50" id="fCt-Yf-PCY"/>
+                            <constraint firstItem="QTu-7z-bSv" firstAttribute="trailing" secondItem="uQL-IW-bS1" secondAttribute="trailing" constant="10" id="jsQ-zc-qHe"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Imagenes" id="OCC-PF-p9Y"/>
+                    <connections>
+                        <outlet property="table" destination="uQL-IW-bS1" id="GLE-mT-kOX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhh-Hd-kUH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1175" y="469"/>
+            <point key="canvasLocation" x="-1175.3623188405797" y="468.75"/>
         </scene>
         <!--Favoritos-->
         <scene sceneID="ioh-Xp-EZi">

@@ -17,14 +17,29 @@ struct RespuestaAPI: Codable{
 struct Resultado: Codable {
     let id: String
     let urls: URLS
+    let likes: Int
+    let user: USER
 }
 
 struct URLS: Codable {
     let full: String
 }
 
-class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate {
+struct USER: Codable {
+    let username: String
+    let profile_image: PROFILE_IMAGE
+}
+
+struct PROFILE_IMAGE: Codable {
+    let medium: String
+}
+
+class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var table: UITableView!
+    
+    var structImgs = [StructImagen]()
+   
     //let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=1&per_page=10&query=cats&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
     
     private var collectionView: UICollectionView?
@@ -37,17 +52,25 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         super.viewDidLoad()
         barrabusqueda.delegate = self
         view.addSubview(barrabusqueda)
+        /*
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: view.frame.size.width/2, height: view.frame.size.width/2)
+        layout.itemSize = CGSize(width: view.frame.size.width/2, height: view.frame.size.width/2.9)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ImagenCollectionViewCell.self, forCellWithReuseIdentifier: ImagenCollectionViewCell.id)
         collectionView.dataSource = self
         view.addSubview(collectionView)
         self.collectionView = collectionView
         obtenerImagenes(busqueda: "cats")
+         */
+        table.register(ImagenTableViewCell.nib(), forCellReuseIdentifier: ImagenTableViewCell.identifier)
+        table.delegate = self
+        table.dataSource = self
+        
+        structImgs.append(StructImagen(numberOfLikes: 200, username: "mguevara", userImageName: "default_profile", imageImageName: "test_image"))
+        structImgs.append(StructImagen(numberOfLikes: 300, username: "mguevara", userImageName: "default_profile", imageImageName: "test_image"))
     }
     
     override func viewDidLayoutSubviews() {
@@ -89,17 +112,49 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         }
         tarea.resume()
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return results.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let URLimg = results[indexPath.row].urls.full
+        print(results[indexPath.row].user.username)
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImagenCollectionViewCell.id, for: indexPath) as? ImagenCollectionViewCell else{
             return UICollectionViewCell()
         }
         cell.configure(with: URLimg)
         return cell
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return structImgs.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: ImagenTableViewCell.identifier, for: indexPath) as! ImagenTableViewCell
+        
+        cell.configure(with: structImgs[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 335
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
 }
 
+struct StructImagen{
+    let numberOfLikes: Int
+    let username: String
+    let userImageName: String
+    let imageImageName: String
+}
