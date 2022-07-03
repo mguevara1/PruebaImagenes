@@ -69,8 +69,7 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         table.delegate = self
         table.dataSource = self
         
-        structImgs.append(StructImagen(numberOfLikes: 200, username: "mguevara", userImageName: "default_profile", imageImageName: "test_image"))
-        structImgs.append(StructImagen(numberOfLikes: 300, username: "mguevara", userImageName: "default_profile", imageImageName: "test_image"))
+        obtenerImagenes(busqueda: "cats")
     }
     
     override func viewDidLayoutSubviews() {
@@ -84,7 +83,8 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         barrabusqueda.resignFirstResponder()
         if let texto = barrabusqueda.text {
             results = []
-            collectionView?.reloadData()
+            //collectionView?.reloadData()
+            table?.reloadData()
             obtenerImagenes(busqueda: texto)
         }
     }
@@ -102,9 +102,13 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
                 let resultado = try JSONDecoder().decode(RespuestaAPI.self, from: data)
                 DispatchQueue.main.async{
                     self.results = resultado.results
-                    self.collectionView?.reloadData()
+                    //self.collectionView?.reloadData()
+                    self.table?.reloadData()
                 }
                 print(resultado.results.count)
+                for r in resultado.results{
+                    self.structImgs.append(StructImagen(numberOfLikes: r.likes, username: r.user.username, userImageURL: r.user.profile_image.medium, imageImageURL: r.urls.full))
+                }
             }
             catch {
                 print(error)
@@ -119,7 +123,7 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let URLimg = results[indexPath.row].urls.full
-        print(results[indexPath.row].user.username)
+        //print(results[indexPath.row].user.username)
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImagenCollectionViewCell.id, for: indexPath) as? ImagenCollectionViewCell else{
             return UICollectionViewCell()
         }
@@ -155,6 +159,6 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
 struct StructImagen{
     let numberOfLikes: Int
     let username: String
-    let userImageName: String
-    let imageImageName: String
+    let userImageURL: String
+    let imageImageURL: String
 }

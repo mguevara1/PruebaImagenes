@@ -31,11 +31,28 @@ class ImagenTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func mostrarImagen(imageURL: String, imageView: UIImageView){
+        guard let url = URL(string: imageURL) else{
+            return
+        }
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                imageView.image = image
+            }
+        }.resume()
+    }
+    
     func configure(with structImg: StructImagen){
         self.likesLabel.text = "\(structImg.numberOfLikes) Likes"
         self.usernameLabel.text = structImg.username
-        self.profilepictureImageView.image = UIImage(named: structImg.userImageName)
-        self.imagenImageView.image = UIImage(named: structImg.imageImageName)
+        //self.profilepictureImageView.image = UIImage(named: structImg.userImageName)
+        //self.imagenImageView.image = UIImage(named: structImg.imageImageName)
+        mostrarImagen(imageURL: structImg.userImageURL, imageView: self.profilepictureImageView)
+        mostrarImagen(imageURL: structImg.imageImageURL, imageView: self.imagenImageView)
     }
     
 }
