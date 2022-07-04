@@ -18,7 +18,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Hw1-FA-j63" kind="relationship" relationship="viewControllers" id="SOW-cE-csW"/>
+                        <segue destination="5nZ-ts-L5P" kind="relationship" relationship="viewControllers" id="SOW-cE-csW"/>
                         <segue destination="XOV-vg-dgZ" kind="relationship" relationship="viewControllers" id="j3g-jz-AT3"/>
                     </connections>
                 </tabBarController>
@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-664" y="-245"/>
         </scene>
-        <!--Imagenes-->
+        <!--Imagenes View Controller-->
         <scene sceneID="M3n-Ff-hxk">
             <objects>
                 <viewController id="Hw1-FA-j63" customClass="ImagenesViewController" customModule="PruebaImagenes" customModuleProvider="target" sceneMemberID="viewController">
@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="uQL-IW-bS1">
-                                <rect key="frame" x="10" y="94" width="394" height="722"/>
+                                <rect key="frame" x="10" y="138" width="394" height="678"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -48,19 +48,19 @@
                             <constraint firstItem="QTu-7z-bSv" firstAttribute="trailing" secondItem="uQL-IW-bS1" secondAttribute="trailing" constant="10" id="jsQ-zc-qHe"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Imagenes" id="OCC-PF-p9Y"/>
+                    <navigationItem key="navigationItem" id="Cdc-DI-z24"/>
                     <connections>
                         <outlet property="table" destination="uQL-IW-bS1" id="GLE-mT-kOX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhh-Hd-kUH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1175.3623188405797" y="468.75"/>
+            <point key="canvasLocation" x="-265.21739130434787" y="468.75"/>
         </scene>
         <!--Favoritos-->
         <scene sceneID="ioh-Xp-EZi">
             <objects>
-                <viewController id="XOV-vg-dgZ" sceneMemberID="viewController">
+                <viewController id="XOV-vg-dgZ" customClass="FavoritosViewController" customModule="PruebaImagenes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D2E-Ux-pMo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,7 +71,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Tt-Af-Zuj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-245" y="470"/>
+            <point key="canvasLocation" x="663.768115942029" y="469.41964285714283"/>
+        </scene>
+        <!--Imagenes-->
+        <scene sceneID="pcC-bY-Mwx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5nZ-ts-L5P" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Imagenes" id="OCC-PF-p9Y"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="HVQ-h0-CZ2">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Hw1-FA-j63" kind="relationship" relationship="rootViewController" id="NVi-Md-40B"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VSv-Oq-jh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1175.3623188405797" y="468.75"/>
         </scene>
     </scenes>
     <resources>

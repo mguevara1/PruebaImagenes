@@ -52,19 +52,7 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         super.viewDidLoad()
         barrabusqueda.delegate = self
         view.addSubview(barrabusqueda)
-        /*
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        layout.itemSize = CGSize(width: view.frame.size.width/2, height: view.frame.size.width/2.9)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(ImagenCollectionViewCell.self, forCellWithReuseIdentifier: ImagenCollectionViewCell.id)
-        collectionView.dataSource = self
-        view.addSubview(collectionView)
-        self.collectionView = collectionView
-        obtenerImagenes(busqueda: "cats")
-         */
+
         table.register(ImagenTableViewCell.nib(), forCellReuseIdentifier: ImagenTableViewCell.identifier)
         table.delegate = self
         table.dataSource = self
@@ -107,7 +95,7 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
                 }
                 print(resultado.results.count)
                 for r in resultado.results{
-                    self.structImgs.append(StructImagen(numberOfLikes: r.likes, username: r.user.username, userImageURL: r.user.profile_image.medium, imageImageURL: r.urls.full))
+                    self.structImgs.append(StructImagen(numberOfLikes: r.likes, username: r.user.username, userImageURL: r.user.profile_image.medium, imageImageURL: r.urls.full, id: r.id))
                 }
             }
             catch {
@@ -161,4 +149,5 @@ struct StructImagen{
     let username: String
     let userImageURL: String
     let imageImageURL: String
+    let id: String
 }

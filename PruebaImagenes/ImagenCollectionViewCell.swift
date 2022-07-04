@@ -50,4 +50,8 @@ class ImagenCollectionViewCell: UICollectionViewCell {
             }
         }.resume()
     }
+    
+    func configure(with data: NSData){
+        self.imageView.image = UIImage(data: data as Data)
+    }
 }

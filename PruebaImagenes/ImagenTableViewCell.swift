@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ImagenTableViewCell: UITableViewCell {
     @IBOutlet weak var profilepictureImageView: UIImageView!
@@ -13,6 +14,10 @@ class ImagenTableViewCell: UITableViewCell {
     
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var imagenImageView: UIImageView!
+    
+    var favoritos: [NSManagedObject] = []
+    
+    var imgId: String = ""
     
     static let identifier = "ImagenTableViewCell"
     
@@ -53,6 +58,34 @@ class ImagenTableViewCell: UITableViewCell {
         //self.imagenImageView.image = UIImage(named: structImg.imageImageName)
         mostrarImagen(imageURL: structImg.userImageURL, imageView: self.profilepictureImageView)
         mostrarImagen(imageURL: structImg.imageImageURL, imageView: self.imagenImageView)
+        self.imgId = structImg.id
+    }
+    
+    func guardar() {
+      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+        return
+      }
+
+      let managedContext = appDelegate.persistentContainer.viewContext
+      let entity = NSEntityDescription.entity(forEntityName: "Favorito", in: managedContext)!
+      let favorito = NSManagedObject(entity: entity, insertInto: managedContext)
+        favorito.setValue(self.usernameLabel.text, forKeyPath: "username")
+        favorito.setValue(self.imgId, forKeyPath: "id")
+        let imgData: NSData = self.imagenImageView.image!.pngData()! as NSData
+        print(imgData)
+        favorito.setValue(imgData, forKeyPath: "image")
+      do {
+        try managedContext.save()
+          self.favoritos.append(favorito)
+          print("Guardado")
+      } catch let error as NSError {
+        print("No se pudo guardar. \(error), \(error.userInfo)")
+      }
+    }
+    
+    
+    @IBAction func more(_ sender: Any) {
+        guardar()
     }
     
 }
