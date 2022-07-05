@@ -72,7 +72,7 @@ class ImagenTableViewCell: UITableViewCell {
         favorito.setValue(self.usernameLabel.text, forKeyPath: "username")
         favorito.setValue(self.imgId, forKeyPath: "id")
         let imgData: NSData = self.imagenImageView.image!.pngData()! as NSData
-        print(imgData)
+        //print(imgData)
         favorito.setValue(imgData, forKeyPath: "image")
       do {
         try managedContext.save()

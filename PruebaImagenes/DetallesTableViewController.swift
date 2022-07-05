@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 class DetallesTableViewController: UITableViewController {
     
@@ -36,7 +37,52 @@ class DetallesTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    func deleteFavorito(){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+          return
+        }
 
+        let viewContext = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorito")
+        let predicate = NSPredicate(format: "id == %@", self.id!)
+            fetchRequest.predicate = predicate
+            let result = try? viewContext.fetch(fetchRequest)
+            let resultData = result as! [Favorito]
+
+            for object in resultData {
+                viewContext.delete(object)
+                print("Eliminado!")
+            }
+
+            do {
+                try viewContext.save()
+            } catch let error as NSError  {
+                print("No se pudo eliminar: \(error), \(error.userInfo)")
+            }
+    }
+    
+    @IBAction func remove(_ sender: Any) {
+        let dialogMessage = UIAlertController(title: "Confirmar", message: "Desea remover de favoritos?", preferredStyle: .alert)
+        
+        let ok = UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+            print("ok tapped")
+            self.deleteFavorito()
+            _ = self.navigationController?.popViewController(animated: true)
+            
+        })
+        
+        let cancel = UIAlertAction(title: "Cancelar", style: .cancel) { (action) -> Void in
+            print("Cancel tapped")
+            
+        }
+        dialogMessage.addAction(ok)
+        dialogMessage.addAction(cancel)
+        
+        self.present(dialogMessage, animated: true, completion: nil)
+    }
+    
     // MARK: - Table view data source
 
     /*

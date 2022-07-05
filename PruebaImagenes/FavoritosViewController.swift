@@ -16,7 +16,7 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource, UIC
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
@@ -30,7 +30,7 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource, UIC
         collectionView.allowsSelection = true 
         view.addSubview(collectionView)
         self.collectionView = collectionView
-        obtenerFavoritos()
+        //obtenerFavoritos()
     }
     
     override func viewDidLayoutSubviews() {
@@ -38,6 +38,11 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource, UIC
         //barrabusqueda.frame = CGRect(x: 10, y: view.safeAreaInsets.top, width: view.frame.size.width-20, height: 50)
         //collectionView?.frame = view.bounds
         collectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top+50, width: view.frame.size.width, height: view.frame.size.height-50)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        favoritos.removeAll()
+        obtenerFavoritos()
     }
     
     func obtenerFavoritos(){
