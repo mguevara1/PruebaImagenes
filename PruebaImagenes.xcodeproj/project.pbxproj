@@ -21,6 +21,7 @@
 		D11192552871F9D4009F651D /* ImagenTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D11192532871F9D4009F651D /* ImagenTableViewCell.xib */; };
 		D11192AA28734F5A009F651D /* Favoritos.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D11192A828734F5A009F651D /* Favoritos.xcdatamodeld */; };
 		D1DA316628736FD70004E9F9 /* FavoritosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DA316528736FD70004E9F9 /* FavoritosViewController.swift */; };
+		D1DA3168287394F10004E9F9 /* DetallesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1DA3167287394F10004E9F9 /* DetallesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		D11192532871F9D4009F651D /* ImagenTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagenTableViewCell.xib; sourceTree = "<group>"; };
 		D11192A928734F5A009F651D /* Favoritos.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Favoritos.xcdatamodel; sourceTree = "<group>"; };
 		D1DA316528736FD70004E9F9 /* FavoritosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritosViewController.swift; sourceTree = "<group>"; };
+		D1DA3167287394F10004E9F9 /* DetallesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetallesTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				D1DA316528736FD70004E9F9 /* FavoritosViewController.swift */,
 				D111921028701296009F651D /* ImagenCollectionViewCell.swift */,
 				D11191E6286FC3BF009F651D /* Main.storyboard */,
+				D1DA3167287394F10004E9F9 /* DetallesTableViewController.swift */,
 				D11191E9286FC3C1009F651D /* Assets.xcassets */,
 				D11191EB286FC3C1009F651D /* LaunchScreen.storyboard */,
 				D11191EE286FC3C1009F651D /* Info.plist */,
@@ -277,6 +280,7 @@
 				D11191E5286FC3BF009F651D /* ImagenesViewController.swift in Sources */,
 				D1DA316628736FD70004E9F9 /* FavoritosViewController.swift in Sources */,
 				D11192542871F9D4009F651D /* ImagenTableViewCell.swift in Sources */,
+				D1DA3168287394F10004E9F9 /* DetallesTableViewController.swift in Sources */,
 				D111921128701296009F651D /* ImagenCollectionViewCell.swift in Sources */,
 				D11191E1286FC3BF009F651D /* AppDelegate.swift in Sources */,
 				D11191E3286FC3BF009F651D /* SceneDelegate.swift in Sources */,

@@ -36,6 +36,8 @@ class ImagenCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
     }
     
+    
+    
     func configure(with urlString: String){
         guard let url = URL(string: urlString) else{
             return

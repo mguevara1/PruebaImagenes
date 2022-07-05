@@ -8,10 +8,11 @@
 import UIKit
 import CoreData
 
-class FavoritosViewController: UIViewController, UICollectionViewDataSource {
+class FavoritosViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     private var collectionView: UICollectionView?
     var favoritos: [NSManagedObject] = []
+    var selectedIndex: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,9 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(ImagenCollectionViewCell.self, forCellWithReuseIdentifier: ImagenCollectionViewCell.id)
         collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isUserInteractionEnabled = true
+        collectionView.allowsSelection = true 
         view.addSubview(collectionView)
         self.collectionView = collectionView
         obtenerFavoritos()
@@ -65,4 +69,19 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource {
         cell.configure(with: dataImg)
         return cell
     }
+    
+    override func prepare(for segue:UIStoryboardSegue, sender: Any?){
+        let detallesTVC = segue.destination as! DetallesTableViewController
+        detallesTVC.id = favoritos[selectedIndex].value(forKey: "id") as? String
+        detallesTVC.username = favoritos[selectedIndex].value(forKey: "username") as? String
+        let dataimg = favoritos[selectedIndex].value(forKey: "image") as! NSData
+        let imgV: UIImage = UIImage(data: dataimg  as Data)!
+        detallesTVC.img = imgV 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
+        selectedIndex = indexPath.row
+        performSegue(withIdentifier: "DetallesSegue", sender: self)
+    }
+    
 }
