@@ -63,6 +63,13 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        if (self.favoritos.count == 0) {
+            self.collectionView?.setMensajeVacio("Aún no tienes imágenes favoritas 😎")
+           } else {
+               self.collectionView?.restore()
+           }
+        
         return favoritos.count
     }
     
@@ -89,4 +96,22 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource, UIC
         performSegue(withIdentifier: "DetallesSegue", sender: self)
     }
     
+}
+extension UICollectionView {
+
+    func setMensajeVacio(_ message: String) {
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.bounds.size.width, height: self.bounds.size.height))
+        messageLabel.text = message
+        messageLabel.textColor = .black
+        messageLabel.numberOfLines = 0;
+        messageLabel.textAlignment = .center;
+        messageLabel.font = UIFont(name: "TrebuchetMS", size: 15)
+        messageLabel.sizeToFit()
+
+        self.backgroundView = messageLabel;
+    }
+
+    func restore() {
+        self.backgroundView = nil
+    }
 }
