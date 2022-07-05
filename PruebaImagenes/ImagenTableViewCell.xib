@@ -36,13 +36,13 @@
                                 <rect key="frame" x="57" y="10" width="222" height="14"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="star" catalog="system" title="Favorito"/>
                                 <connections>
-                                    <action selector="more:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="N5s-eY-qQ6"/>
+                                    <action selector="favAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="adU-H3-Kgy"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="ewy-mo-NE6" firstAttribute="leading" secondItem="tDd-Uk-dn2" secondAttribute="leading" constant="5" id="5ul-mi-CQG"/>
                             <constraint firstAttribute="bottom" secondItem="ewy-mo-NE6" secondAttribute="bottom" constant="5" id="Nuk-8f-Hlk"/>
@@ -68,7 +68,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="ObH-d5-3et" secondAttribute="trailing" constant="10" id="Fc8-cH-AUr"/>
                             <constraint firstAttribute="bottom" secondItem="QjZ-Zk-7HI" secondAttribute="bottom" constant="5" id="NRB-kM-x5w"/>
@@ -98,6 +98,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="favButton" destination="z6d-k5-2ZI" id="moH-9B-6oT"/>
                 <outlet property="imagenImageView" destination="k5L-T6-Bam" id="4Ft-as-sKJ"/>
                 <outlet property="likesLabel" destination="ewy-mo-NE6" id="hal-i8-ZrM"/>
                 <outlet property="profilepictureImageView" destination="QjZ-Zk-7HI" id="3MW-ui-fFn"/>
@@ -107,11 +108,9 @@
         </tableViewCell>
     </objects>
     <resources>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

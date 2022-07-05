@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="-664" y="-245"/>
         </scene>
-        <!--Imagenes View Controller-->
+        <!--ImagenesApp-->
         <scene sceneID="M3n-Ff-hxk">
             <objects>
                 <viewController id="Hw1-FA-j63" customClass="ImagenesViewController" customModule="PruebaImagenes" customModuleProvider="target" sceneMemberID="viewController">
@@ -48,7 +48,7 @@
                             <constraint firstItem="QTu-7z-bSv" firstAttribute="trailing" secondItem="uQL-IW-bS1" secondAttribute="trailing" constant="10" id="jsQ-zc-qHe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Cdc-DI-z24"/>
+                    <navigationItem key="navigationItem" title="ImagenesApp" id="Cdc-DI-z24"/>
                     <connections>
                         <outlet property="table" destination="uQL-IW-bS1" id="GLE-mT-kOX"/>
                     </connections>
@@ -57,7 +57,7 @@
             </objects>
             <point key="canvasLocation" x="-265.21739130434787" y="468.75"/>
         </scene>
-        <!--Favoritos View Controller-->
+        <!--ImagenesApp-->
         <scene sceneID="ioh-Xp-EZi">
             <objects>
                 <viewController id="XOV-vg-dgZ" customClass="FavoritosViewController" customModule="PruebaImagenes" customModuleProvider="target" sceneMemberID="viewController">
@@ -67,7 +67,7 @@
                         <viewLayoutGuide key="safeArea" id="gAr-Br-XQ9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="WXH-dF-WZt"/>
+                    <navigationItem key="navigationItem" title="ImagenesApp" id="WXH-dF-WZt"/>
                     <connections>
                         <segue destination="GuJ-dE-AUm" kind="show" identifier="DetallesSegue" id="RHc-0F-gxo"/>
                     </connections>
@@ -176,7 +176,7 @@
         <scene sceneID="pcC-bY-Mwx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="5nZ-ts-L5P" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Imagenes" selectedImage="photo.on.rectangle.angled" catalog="system" id="OCC-PF-p9Y"/>
+                    <tabBarItem key="tabBarItem" title="Imagenes" image="photo.on.rectangle" catalog="system" selectedImage="photo.fill.on.rectangle.fill" id="OCC-PF-p9Y"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HVQ-h0-CZ2">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -195,7 +195,7 @@
         <scene sceneID="Ocu-tR-4j2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zo8-1M-lpJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Favoritos" selectedImage="star" catalog="system" id="3P2-sV-v2f"/>
+                    <tabBarItem key="tabBarItem" title="Favoritos" image="star" catalog="system" selectedImage="star.fill" id="3P2-sV-v2f"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vQQ-Ag-w3b">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -212,8 +212,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="photo.on.rectangle.angled" catalog="system" width="128" height="100"/>
+        <image name="photo.fill.on.rectangle.fill" catalog="system" width="128" height="97"/>
+        <image name="photo.on.rectangle" catalog="system" width="128" height="97"/>
         <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="xmark.bin" catalog="system" width="128" height="93"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

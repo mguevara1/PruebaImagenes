@@ -39,6 +39,8 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
     @IBOutlet weak var table: UITableView!
     
     var structImgs = [StructImagen]()
+    var currentPage: Int = 0
+    var searchText: String?
    
     //let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=1&per_page=10&query=cats&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
     
@@ -57,7 +59,10 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         table.delegate = self
         table.dataSource = self
         
-        obtenerImagenes(busqueda: "cats")
+        self.currentPage = 1
+        self.searchText = "cats"
+        obtenerImagenes(busqueda: self.searchText!)
+        print("Paginas: \(self.currentPage)")
     }
     
     override func viewDidLayoutSubviews() {
@@ -67,18 +72,34 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         collectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top+50, width: view.frame.size.width, height: view.frame.size.height-50)
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastElement = structImgs.count - 1
+            if indexPath.row == lastElement {
+               //print("end")
+                self.currentPage += 1
+                print("Paginas: \(self.currentPage)")
+                obtenerImagenes(busqueda: self.searchText!)
+                //print("Imagenes: \(structImgs.count)")
+            }
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         barrabusqueda.resignFirstResponder()
         if let texto = barrabusqueda.text {
-            results = []
+            //results = []
+            self.searchText = texto
+            results.removeAll()
+            structImgs.removeAll()
             //collectionView?.reloadData()
             table?.reloadData()
+            currentPage = 1
             obtenerImagenes(busqueda: texto)
+            table?.reloadData()
         }
     }
     
     func obtenerImagenes(busqueda: String){
-        let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=1&per_page=10&query=\(busqueda)&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
+        let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=\(currentPage)&per_page=10&query=\(busqueda)&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
         guard let url = URL(string: urlBusquedaImagenes) else{
             return
         }
@@ -93,10 +114,11 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
                     //self.collectionView?.reloadData()
                     self.table?.reloadData()
                 }
-                print(resultado.results.count)
+                //print(resultado.results.count)
                 for r in resultado.results{
                     self.structImgs.append(StructImagen(numberOfLikes: r.likes, username: r.user.username, userImageURL: r.user.profile_image.medium, imageImageURL: r.urls.full, id: r.id))
                 }
+                print("Total Imagenes: \(self.structImgs.count)")
             }
             catch {
                 print(error)

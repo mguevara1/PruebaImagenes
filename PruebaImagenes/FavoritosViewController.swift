@@ -15,6 +15,7 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource, UIC
     var selectedIndex: Int = 0
 
     override func viewDidLoad() {
+        //self.showSpinner(onView: self.view)
         super.viewDidLoad()
         
         let layout = UICollectionViewFlowLayout()
@@ -43,6 +44,7 @@ class FavoritosViewController: UIViewController, UICollectionViewDataSource, UIC
     override func viewDidAppear(_ animated: Bool) {
         favoritos.removeAll()
         obtenerFavoritos()
+        //self.removeSpinner()
     }
     
     func obtenerFavoritos(){
@@ -115,3 +117,4 @@ extension UICollectionView {
         self.backgroundView = nil
     }
 }
+
