@@ -68,17 +68,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnk-lJ-M5F">
+                                <rect key="frame" x="80" y="10" width="199" height="44"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="person" catalog="system" title="ver"/>
+                                <connections>
+                                    <action selector="verUsuario:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dZy-Od-hHP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="xnk-lJ-M5F" firstAttribute="top" secondItem="inf-HK-o1F" secondAttribute="top" constant="10" id="0Mz-kj-C4h"/>
                             <constraint firstAttribute="trailing" secondItem="ObH-d5-3et" secondAttribute="trailing" constant="10" id="Fc8-cH-AUr"/>
                             <constraint firstAttribute="bottom" secondItem="QjZ-Zk-7HI" secondAttribute="bottom" constant="5" id="NRB-kM-x5w"/>
                             <constraint firstAttribute="bottom" secondItem="ObH-d5-3et" secondAttribute="bottom" constant="20" id="QJ4-JX-U3C"/>
                             <constraint firstItem="QjZ-Zk-7HI" firstAttribute="top" secondItem="inf-HK-o1F" secondAttribute="top" constant="5" id="U4a-Y2-O6g"/>
+                            <constraint firstAttribute="bottom" secondItem="xnk-lJ-M5F" secondAttribute="bottom" constant="10" id="V55-ra-o4D"/>
                             <constraint firstItem="ObH-d5-3et" firstAttribute="top" secondItem="inf-HK-o1F" secondAttribute="top" constant="20" id="Z9y-5F-bOf"/>
                             <constraint firstItem="QjZ-Zk-7HI" firstAttribute="centerY" secondItem="ObH-d5-3et" secondAttribute="centerY" id="a3D-DZ-kxw"/>
+                            <constraint firstAttribute="trailing" secondItem="xnk-lJ-M5F" secondAttribute="trailing" constant="10" id="cRf-nF-pum"/>
                             <constraint firstItem="ObH-d5-3et" firstAttribute="leading" secondItem="QjZ-Zk-7HI" secondAttribute="trailing" constant="10" id="d9Z-Lb-mkK"/>
                             <constraint firstItem="QjZ-Zk-7HI" firstAttribute="leading" secondItem="inf-HK-o1F" secondAttribute="leading" constant="5" id="gzL-ql-uz7"/>
+                            <constraint firstItem="xnk-lJ-M5F" firstAttribute="leading" secondItem="QjZ-Zk-7HI" secondAttribute="trailing" constant="25" id="mdY-Uv-qi2"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -103,12 +116,14 @@
                 <outlet property="imagenImageView" destination="k5L-T6-Bam" id="4Ft-as-sKJ"/>
                 <outlet property="likesLabel" destination="ewy-mo-NE6" id="hal-i8-ZrM"/>
                 <outlet property="profilepictureImageView" destination="QjZ-Zk-7HI" id="3MW-ui-fFn"/>
+                <outlet property="userButton" destination="xnk-lJ-M5F" id="bTH-jZ-ons"/>
                 <outlet property="usernameLabel" destination="ObH-d5-3et" id="Mys-Aw-tw2"/>
             </connections>
             <point key="canvasLocation" x="142.75362318840581" y="183.81696428571428"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="person" catalog="system" width="128" height="117"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

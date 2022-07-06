@@ -37,15 +37,16 @@ struct PROFILE_IMAGE: Codable {
     let medium: String
 }
 
-class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource {
+class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource{
+    
     
     @IBOutlet weak var table: UITableView!
     
     var structImgs = [StructImagen]()
     var currentPage: Int = 0
     var searchText: String?
-   
-    //let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=1&per_page=10&query=cats&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
+    var userIndexTag: Int = 0
+    var userImage: UIImage?
     
     private var collectionView: UICollectionView?
     
@@ -57,6 +58,7 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         super.viewDidLoad()
         barrabusqueda.delegate = self
         view.addSubview(barrabusqueda)
+        barrabusqueda.searchTextField.placeholder = "Buscar Imagenes..."
 
         table.register(ImagenTableViewCell.nib(), forCellReuseIdentifier: ImagenTableViewCell.identifier)
         table.delegate = self
@@ -155,9 +157,32 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ImagenTableViewCell.identifier, for: indexPath) as! ImagenTableViewCell
-        
+        cell.userButton.tag = indexPath.row
+        cell.userButton.addTarget(self, action: #selector(self.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
+         
         cell.configure(with: structImgs[indexPath.row])
         return cell
+    }
+    
+    @objc func buttonTapped(_ sender:UIButton!){
+        print(sender.tag)
+        self.userIndexTag = sender.tag
+        self.performSegue(withIdentifier: "userSegue", sender: self)
+    }
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "userSegue") {
+            if let detallesTVC = segue.destination as? DetallesTableViewController {
+                detallesTVC.id = structImgs[userIndexTag].id
+                detallesTVC.username = structImgs[userIndexTag].username
+                detallesTVC.name = structImgs[userIndexTag].name
+                detallesTVC.likes = String(structImgs[userIndexTag].numberOfLikes)
+                detallesTVC.location = structImgs[userIndexTag].location
+                detallesTVC.userimage = structImgs[userIndexTag].userImageURL
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

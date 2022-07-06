@@ -26,6 +26,7 @@ class DetallesTableViewController: UITableViewController {
     var location:String?
     var total_photos:String?
     var likes: String?
+    var userimage: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +61,9 @@ class DetallesTableViewController: UITableViewController {
         }else{
             likesLabel.text = "0"
         }
+        if(userimage != nil){
+            configure(with: userimage!)
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -90,6 +94,21 @@ class DetallesTableViewController: UITableViewController {
             } catch let error as NSError  {
                 print("No se pudo eliminar: \(error), \(error.userInfo)")
             }
+    }
+    
+    func configure(with urlString: String){
+        guard let url = URL(string: urlString) else{
+            return
+        }
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let data = data, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                let image = UIImage(data: data)
+                self?.imagenCell.imageView?.image = image
+            }
+        }.resume()
     }
     
     @IBAction func remove(_ sender: Any) {

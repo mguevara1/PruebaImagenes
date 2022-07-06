@@ -15,6 +15,7 @@ class ImagenTableViewCell: UITableViewCell {
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var imagenImageView: UIImageView!
     @IBOutlet weak var favButton: UIButton!
+    @IBOutlet weak var userButton: UIButton!
     
     var activityIndicator = UIActivityIndicatorView(style: .large)
     var favoritos: [NSManagedObject] = []
@@ -111,4 +112,12 @@ class ImagenTableViewCell: UITableViewCell {
 
     }
     
+    
+    @IBAction func verUsuario(_ sender: Any) {
+        //print("a")
+        //self.inputViewController?.performSegue(withIdentifier: "userSegue", sender: self)
+    }
+    
 }
+
+

@@ -51,6 +51,7 @@
                     <navigationItem key="navigationItem" title="ImagenesApp" id="Cdc-DI-z24"/>
                     <connections>
                         <outlet property="table" destination="uQL-IW-bS1" id="GLE-mT-kOX"/>
+                        <segue destination="GuJ-dE-AUm" kind="show" identifier="userSegue" id="6gU-xM-evK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bhh-Hd-kUH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -79,7 +80,7 @@
         <!--Detalles Table View Controller-->
         <scene sceneID="mae-UG-eAL">
             <objects>
-                <tableViewController id="GuJ-dE-AUm" customClass="DetallesTableViewController" customModule="PruebaImagenes" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="detalles" id="GuJ-dE-AUm" customClass="DetallesTableViewController" customModule="PruebaImagenes" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="wHx-W1-865">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -311,6 +312,9 @@
             <point key="canvasLocation" x="663.768115942029" y="469.41964285714283"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="6gU-xM-evK"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="photo.fill.on.rectangle.fill" catalog="system" width="128" height="97"/>
         <image name="photo.on.rectangle" catalog="system" width="128" height="97"/>
