@@ -28,6 +28,9 @@ struct URLS: Codable {
 struct USER: Codable {
     let username: String
     let profile_image: PROFILE_IMAGE
+    let name: String?
+    let location: String?
+    let total_photos: Int?
 }
 
 struct PROFILE_IMAGE: Codable {
@@ -60,9 +63,9 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         table.dataSource = self
         
         self.currentPage = 1
-        self.searchText = "cats"
-        obtenerImagenes(busqueda: self.searchText!)
-        print("Paginas: \(self.currentPage)")
+        //self.searchText = "cats"
+        //obtenerImagenes(busqueda: self.searchText!)
+        //print("Paginas: \(self.currentPage)")
     }
     
     override func viewDidLayoutSubviews() {
@@ -116,7 +119,7 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
                 }
                 //print(resultado.results.count)
                 for r in resultado.results{
-                    self.structImgs.append(StructImagen(numberOfLikes: r.likes, username: r.user.username, userImageURL: r.user.profile_image.medium, imageImageURL: r.urls.full, id: r.id))
+                    self.structImgs.append(StructImagen(numberOfLikes: r.likes, username: r.user.username, name: r.user.name, location: r.user.location, total_photos: r.user.total_photos, userImageURL: r.user.profile_image.medium, imageImageURL: r.urls.full, id: r.id))
                 }
                 print("Total Imagenes: \(self.structImgs.count)")
             }
@@ -126,6 +129,7 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         }
         tarea.resume()
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return results.count
@@ -169,6 +173,9 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
 struct StructImagen{
     let numberOfLikes: Int
     let username: String
+    let name: String?
+    let location: String?
+    let total_photos: Int?
     let userImageURL: String
     let imageImageURL: String
     let id: String

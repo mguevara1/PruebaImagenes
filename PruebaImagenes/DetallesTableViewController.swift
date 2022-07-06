@@ -13,10 +13,19 @@ class DetallesTableViewController: UITableViewController {
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var imagenCell: UITableViewCell!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var totalphotosLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var likesLabel: UILabel!
+    
     
     var id:String?
     var username:String?
     var img: UIImage?
+    var name:String?
+    var location:String?
+    var total_photos:String?
+    var likes: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +39,26 @@ class DetallesTableViewController: UITableViewController {
         }
         if ((img) != nil){
             imagenCell.imageView?.image = img 
+        }
+        if ((name) != nil){
+            nameLabel.text = name
+        }else{
+            nameLabel.text = ""
+        }
+        if ((location) != nil){
+            locationLabel.text = location
+        }else{
+            locationLabel.text = ""
+        }
+        if ((total_photos) != nil){
+            totalphotosLabel.text = total_photos
+        }else{
+            totalphotosLabel.text = "0"
+        }
+        if ((likes) != nil){
+            likesLabel.text = likes
+        }else{
+            likesLabel.text = "0"
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

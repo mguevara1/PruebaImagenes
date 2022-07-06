@@ -16,9 +16,14 @@ class ImagenTableViewCell: UITableViewCell {
     @IBOutlet weak var imagenImageView: UIImageView!
     @IBOutlet weak var favButton: UIButton!
     
+    var activityIndicator = UIActivityIndicatorView(style: .large)
     var favoritos: [NSManagedObject] = []
     
-    var imgId: String = ""
+    var imgId: String = " "
+    var name: String = " "
+    var location: String = " "
+    var total_photos: Int = 0
+    var likes: Int = 0
     
     static let identifier = "ImagenTableViewCell"
     
@@ -29,6 +34,11 @@ class ImagenTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        activityIndicator.startAnimating()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -55,11 +65,14 @@ class ImagenTableViewCell: UITableViewCell {
     func configure(with structImg: StructImagen){
         self.likesLabel.text = "\(structImg.numberOfLikes) Likes"
         self.usernameLabel.text = structImg.username
-        //self.profilepictureImageView.image = UIImage(named: structImg.userImageName)
-        //self.imagenImageView.image = UIImage(named: structImg.imageImageName)
         mostrarImagen(imageURL: structImg.userImageURL, imageView: self.profilepictureImageView)
         mostrarImagen(imageURL: structImg.imageImageURL, imageView: self.imagenImageView)
+        self.activityIndicator.stopAnimating()
         self.imgId = structImg.id
+        self.total_photos = structImg.total_photos ?? 0
+        self.name = structImg.name ?? ""
+        self.location = structImg.location ?? ""
+        self.likes = structImg.numberOfLikes
     }
     
     func guardar() {
@@ -74,8 +87,11 @@ class ImagenTableViewCell: UITableViewCell {
         favorito.setValue(self.usernameLabel.text, forKeyPath: "username")
         favorito.setValue(self.imgId, forKeyPath: "id")
         let imgData: NSData = self.imagenImageView.image!.pngData()! as NSData
-        //print(imgData)
         favorito.setValue(imgData, forKeyPath: "image")
+        favorito.setValue(self.name, forKeyPath: "name")
+        favorito.setValue(self.location, forKeyPath: "location")
+        favorito.setValue(self.likes, forKeyPath: "likes")
+        favorito.setValue(self.total_photos, forKeyPath: "total_photos")
       do {
         try managedContext.save()
           self.favoritos.append(favorito)
@@ -87,54 +103,12 @@ class ImagenTableViewCell: UITableViewCell {
     
     
     @IBAction func favAction(_ sender: Any) {
+        print("Guardando...")
+        activityIndicator.startAnimating()
         guardar()
         favButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
-        //Toast.show(message: "My message", controller: self.tableView.delegate)
+        self.activityIndicator.stopAnimating()
+
     }
     
-}
-
-class Toast {
-    static func show(message: String, controller: UIViewController) {
-        let toastContainer = UIView(frame: CGRect())
-        toastContainer.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        toastContainer.alpha = 0.0
-        toastContainer.layer.cornerRadius = 25;
-        toastContainer.clipsToBounds  =  true
-
-        let toastLabel = UILabel(frame: CGRect())
-        toastLabel.textColor = UIColor.white
-        toastLabel.textAlignment = .center;
-        toastLabel.font.withSize(12.0)
-        toastLabel.text = message
-        toastLabel.clipsToBounds  =  true
-        toastLabel.numberOfLines = 0
-
-        toastContainer.addSubview(toastLabel)
-        controller.view.addSubview(toastContainer)
-
-        toastLabel.translatesAutoresizingMaskIntoConstraints = false
-        toastContainer.translatesAutoresizingMaskIntoConstraints = false
-
-        let a1 = NSLayoutConstraint(item: toastLabel, attribute: .leading, relatedBy: .equal, toItem: toastContainer, attribute: .leading, multiplier: 1, constant: 15)
-        let a2 = NSLayoutConstraint(item: toastLabel, attribute: .trailing, relatedBy: .equal, toItem: toastContainer, attribute: .trailing, multiplier: 1, constant: -15)
-        let a3 = NSLayoutConstraint(item: toastLabel, attribute: .bottom, relatedBy: .equal, toItem: toastContainer, attribute: .bottom, multiplier: 1, constant: -15)
-        let a4 = NSLayoutConstraint(item: toastLabel, attribute: .top, relatedBy: .equal, toItem: toastContainer, attribute: .top, multiplier: 1, constant: 15)
-        toastContainer.addConstraints([a1, a2, a3, a4])
-
-        let c1 = NSLayoutConstraint(item: toastContainer, attribute: .leading, relatedBy: .equal, toItem: controller.view, attribute: .leading, multiplier: 1, constant: 65)
-        let c2 = NSLayoutConstraint(item: toastContainer, attribute: .trailing, relatedBy: .equal, toItem: controller.view, attribute: .trailing, multiplier: 1, constant: -65)
-        let c3 = NSLayoutConstraint(item: toastContainer, attribute: .bottom, relatedBy: .equal, toItem: controller.view, attribute: .bottom, multiplier: 1, constant: -75)
-        controller.view.addConstraints([c1, c2, c3])
-
-        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseIn, animations: {
-            toastContainer.alpha = 1.0
-        }, completion: { _ in
-            UIView.animate(withDuration: 0.5, delay: 1.5, options: .curveEaseOut, animations: {
-                toastContainer.alpha = 0.0
-            }, completion: {_ in
-                toastContainer.removeFromSuperview()
-            })
-        })
-    }
 }
