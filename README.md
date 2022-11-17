@@ -1,13 +1,5 @@
 # PruebaImagenes
 
-NOTAS:
-La clave 'access key' aparece visible en este proyecto unicamente para fines de revision de la prueba tecnica. 
-Luego de finalizado el proceso se quitará y cambiará la clave para seguridad, o se pondrá privado el repositorio.
-
-La Busqueda debe realizarse con palabras en ingles. Este es el principal idioma que maneja Unsplash, los otros son beta.
-
-El proyecto fue mayormente probado en simulador iPhone12 y dispositivo real iPhone 13 Pro Max.
-
 DESCRIPCION:
 
 La meta de esta prueba es implementar un proyecto de ejemplo, donde se despliega una
