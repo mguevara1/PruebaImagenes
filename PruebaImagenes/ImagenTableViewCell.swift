@@ -114,8 +114,6 @@ class ImagenTableViewCell: UITableViewCell {
     
     
     @IBAction func verUsuario(_ sender: Any) {
-        //print("a")
-        //self.inputViewController?.performSegue(withIdentifier: "userSegue", sender: self)
     }
     
 }
