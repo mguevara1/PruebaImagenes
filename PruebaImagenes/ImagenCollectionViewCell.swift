@@ -2,7 +2,7 @@
 //  ImagenCollectionViewCell.swift
 //  PruebaImagenes
 //
-//  Created by Marco Guevara on 1/07/22.
+//  Created by Marco Guevara on 21/10/22.
 //
 
 import UIKit
@@ -36,24 +36,11 @@ class ImagenCollectionViewCell: UICollectionViewCell {
         imageView.image = nil
     }
     
-    
-    
     func configure(with urlString: String){
-        guard let url = URL(string: urlString) else{
-            return
-        }
-        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let data = data, error == nil else {
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self?.imageView.image = image
-            }
-        }.resume()
+        ImageClient.mostrarImagen(imageURL: urlString, imageView: imageView, completionHandler: {_ in})
     }
     
     func configure(with data: NSData){
-        self.imageView.image = UIImage(data: data as Data)
+        imageView.image = UIImage(data: data as Data)?.resized(withPercentage: 0.1)
     }
 }

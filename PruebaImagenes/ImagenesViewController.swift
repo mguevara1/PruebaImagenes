@@ -6,43 +6,13 @@
 //
 
 import UIKit
-//import XCTest
 
-struct RespuestaAPI: Codable{
-    let total: Int
-    let total_pages: Int
-    let results: [Resultado]
-}
-
-struct Resultado: Codable {
-    let id: String
-    let urls: URLS
-    let likes: Int
-    let user: USER
-}
-
-struct URLS: Codable {
-    let full: String
-}
-
-struct USER: Codable {
-    let username: String
-    let profile_image: PROFILE_IMAGE
-    let name: String?
-    let location: String?
-    let total_photos: Int?
-}
-
-struct PROFILE_IMAGE: Codable {
-    let medium: String
-}
-
-class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISearchBarDelegate,UITableViewDelegate, UITableViewDataSource{
-    
+class ImagenesViewController: BaseViewController, UISearchBarDelegate, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var table: UITableView!
     
     var structImgs = [StructImagen]()
+    var arrayImgs: [Result] = []
     var currentPage: Int = 0
     var searchText: String?
     var userIndexTag: Int = 0
@@ -50,7 +20,7 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
     
     private var collectionView: UICollectionView?
     
-    var results: [Resultado] = []
+    public static var cachedImages: [String : UIImage] = [:]
     
     let barrabusqueda = UISearchBar()
 
@@ -58,109 +28,78 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         super.viewDidLoad()
         barrabusqueda.delegate = self
         view.addSubview(barrabusqueda)
-        barrabusqueda.searchTextField.placeholder = "Buscar Imagenes..."
-
-        table.register(ImagenTableViewCell.nib(), forCellReuseIdentifier: ImagenTableViewCell.identifier)
+        barrabusqueda.searchTextField.placeholder = "Search images..."
         table.delegate = self
         table.dataSource = self
-        
         self.currentPage = 1
-        //self.searchText = "cats"
-        //obtenerImagenes(busqueda: self.searchText!)
-        //print("Paginas: \(self.currentPage)")
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         barrabusqueda.frame = CGRect(x: 10, y: view.safeAreaInsets.top, width: view.frame.size.width-20, height: 50)
-        //collectionView?.frame = view.bounds
         collectionView?.frame = CGRect(x: 0, y: view.safeAreaInsets.top+50, width: view.frame.size.width, height: view.frame.size.height-50)
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let lastElement = structImgs.count - 1
-            if indexPath.row == lastElement {
-               //print("end")
-                self.currentPage += 1
-                print("Paginas: \(self.currentPage)")
-                obtenerImagenes(busqueda: self.searchText!)
-                //print("Imagenes: \(structImgs.count)")
+    func getImages() {
+
+        ImageClient.obtenerImagenes(busqueda: self.searchText!, currentPage: currentPage, completion: { (result, error) in
+            
+            if let result = result {
+                self.arrayImgs = result
+                for r in result{
+                    ImageClient.getImage(imageId: r.id, imageURL: r.urls.full, completionHandler: {id, image, error in
+                        DispatchQueue.main.async {
+                            self.hideActivityIndicator()
+                        }
+                        
+                        if let id = id, let image = image {
+                            ImagenesViewController.cachedImages[id] = image
+                            self.structImgs.append(StructImagen(numberOfLikes: r.likes, username: r.user.username, name: r.user.name, location: r.user.location, total_photos: r.user.total_photos, userImageURL: r.user.profile_image.medium, imageImageURL: r.urls.full, image: image, id: r.id))
+                            self.table.reloadData()
+                        } else {
+                            if let error = error {
+                                print(error.localizedDescription)
+                                DispatchQueue.main.async {
+                                    self.showAlert(message: error.localizedDescription, title: "Error")
+                                }
+                            }
+                        }
+                    })
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.hideActivityIndicator()
+                    self.showAlert(message: error?.localizedDescription ?? "Error fetching images", title: "Error")
+                }
             }
+        })
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         barrabusqueda.resignFirstResponder()
         if let texto = barrabusqueda.text {
-            //results = []
             self.searchText = texto
-            results.removeAll()
             structImgs.removeAll()
-            //collectionView?.reloadData()
+            ImagenesViewController.cachedImages.removeAll()
             table?.reloadData()
             currentPage = 1
-            obtenerImagenes(busqueda: texto)
-            table?.reloadData()
+            showActivityIndicator()
+            getImages()
         }
-    }
-    
-    func obtenerImagenes(busqueda: String){
-        let urlBusquedaImagenes = "https://api.unsplash.com/search/photos?page=\(currentPage)&per_page=10&query=\(busqueda)&client_id=JyY5KVg1qB9PR2vt3reK2FmOZzng80sZsOkPMik9cTE"
-        guard let url = URL(string: urlBusquedaImagenes) else{
-            return
-        }
-        let tarea = URLSession.shared.dataTask(with: url){data, _, error in
-            guard let data = data, error == nil else{
-                return
-            }
-            do {
-                let resultado = try JSONDecoder().decode(RespuestaAPI.self, from: data)
-                DispatchQueue.main.async{
-                    self.results = resultado.results
-                    //self.collectionView?.reloadData()
-                    self.table?.reloadData()
-                }
-                //print(resultado.results.count)
-                for r in resultado.results{
-                    self.structImgs.append(StructImagen(numberOfLikes: r.likes, username: r.user.username, name: r.user.name, location: r.user.location, total_photos: r.user.total_photos, userImageURL: r.user.profile_image.medium, imageImageURL: r.urls.full, id: r.id))
-                }
-                print("Total Imagenes: \(self.structImgs.count)")
-            }
-            catch {
-                print(error)
-            }
-        }
-        tarea.resume()
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return results.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let URLimg = results[indexPath.row].urls.full
-        //print(results[indexPath.row].user.username)
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImagenCollectionViewCell.id, for: indexPath) as? ImagenCollectionViewCell else{
-            return UICollectionViewCell()
-        }
-        cell.configure(with: URLimg)
-        return cell
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return structImgs.count
+        return ImagenesViewController.cachedImages.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: ImagenTableViewCell.identifier, for: indexPath) as! ImagenTableViewCell
-        cell.userButton.tag = indexPath.row
-        cell.userButton.addTarget(self, action: #selector(self.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
-         
-        cell.configure(with: structImgs[indexPath.row])
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ImageViewCell", for: indexPath)
+        cell.imageView?.center = cell.center
+        let cellImg : UIImageView = UIImageView(frame: CGRectMake(0, 0, 150, 150))
+        cellImg.image = structImgs[indexPath.row].image.resized(withPercentage: 0.1)
+        cell.addSubview(cellImg)
+        
         return cell
     }
     
@@ -170,38 +109,28 @@ class ImagenesViewController: UIViewController, UICollectionViewDataSource, UISe
         self.performSegue(withIdentifier: "userSegue", sender: self)
     }
     
-    
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "userSegue") {
             if let detallesTVC = segue.destination as? DetallesTableViewController {
-                detallesTVC.id = structImgs[userIndexTag].id
+                let id = structImgs[userIndexTag].id
+                detallesTVC.id = id
                 detallesTVC.username = structImgs[userIndexTag].username
-                detallesTVC.name = structImgs[userIndexTag].name
+                detallesTVC.name = structImgs[userIndexTag].name ?? "N/A"
                 detallesTVC.likes = String(structImgs[userIndexTag].numberOfLikes)
-                detallesTVC.location = structImgs[userIndexTag].location
-                detallesTVC.userimage = structImgs[userIndexTag].userImageURL
+                detallesTVC.location = structImgs[userIndexTag].location ?? "Unknown"
+                detallesTVC.total_photos = String(structImgs[userIndexTag].total_photos ?? 0)
+                let dataimg = ImagenesViewController.cachedImages[id]
+                detallesTVC.img = dataimg
             }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 335
+        return 150
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        userIndexTag = indexPath.row
+        performSegue(withIdentifier: "userSegue", sender: self)
     }
-}
-
-struct StructImagen{
-    let numberOfLikes: Int
-    let username: String
-    let name: String?
-    let location: String?
-    let total_photos: Int?
-    let userImageURL: String
-    let imageImageURL: String
-    let id: String
 }

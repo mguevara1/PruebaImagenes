@@ -1,10 +1,21 @@
-# PruebaImagenes
+# Unsplash Image Search App
+This is an iOS Swift application that allows users to search images using the Unsplash API. The app also has a feature to save favorite images locally.
 
-DESCRIPCION:
+## Features
+Users can search for images using keywords and view the search results.
+Users can see extra info like user, and number of likes.
+Users can save their favorite images locally and view  them later in the "Favorites" tab.
+User can see detailed info of Favorite photos and User info.
+Users can delete saved images from the "Favorites" tab.
 
-La meta de esta prueba es crear un app en la que se despliega una
-galería de imágenes, en la cual el usuario puede agregar imágenes a un listado de favoritos
-que se guarda localmente en el dispositivo la cual puede ser visualizada sin conexión a
-internet. Tanto en el listado de imágenes como en el listado de favoritos el usuario puede
-realizar una búsqueda. Finalmente la navegación entre el listado de imágenes y el listado de
-favoritos debe ser a través de un tab bar.
+## Requirements
+Xcode 13.0 or higher
+Swift 5.5
+iOS 14.0 or higher
+
+## Usage
+Launch the app.
+Enter a search term in the search bar and tap enter button.
+View the search results.
+Tap the "Favorite" button to save the image to the "Favorites" tab.
+Navigate to the "Favorites" tab to view saved images.
